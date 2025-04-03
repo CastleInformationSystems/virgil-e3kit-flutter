@@ -18,6 +18,9 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
+        flatDir {
+            dirs 'libs'
+        }
     }
 }
 
@@ -36,6 +39,14 @@ android {
 }
 
 dependencies {
+    implementation files('libs/fuel-1.15.1.jar')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.virgilsecurity:ethree:2.0.10"
+}
+
+configurations.configureEach {
+    resolutionStrategy {
+        //exclude github versions of fuel
+        exclude group: 'com.github.kittinunf.fuel', module: 'fuel'
+    }
 }
